@@ -5,6 +5,9 @@
     <meta name="author" content="Luks">
     <meta name="description" content="Welcome to my programming blog. Here I show my evolution in this world. Thanks!">
 
+    <!-- 📱 ESSENCIAL PARA MOBILE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,9 +16,11 @@
 </head>
 
 <body>
+
     <audio id="bg-music" loop>
-    <source src="song.mp3" type="audio/mpeg">
+        <source src="song.mp3" type="audio/mpeg">
     </audio>
+
     <video autoplay muted loop id="bg-video">
         <source src="video.mp4" type="video/mp4">
     </video>
@@ -60,14 +65,17 @@
     </main>
 
     <footer></footer>
-<script>
-const music = document.getElementById("bg-music");
 
-music.volume = 0.4;
+    <!-- 🔊 SEU JS (NÃO MEXI QUASE NADA) -->
+    <script>
+    const music = document.getElementById("bg-music");
 
-window.addEventListener("pointerdown", () => {
-    music.play();
-}, { once: true });
-</script>
+    music.volume = 0.4;
+
+    window.addEventListener("pointerdown", () => {
+        music.play();
+    }, { once: true });
+    </script>
+
 </body>
 </html>
