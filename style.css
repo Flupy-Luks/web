@@ -5,14 +5,13 @@
 }
 
 html, body {
+    margin: 0;
+    padding: 0;
     height: 100%;
-    overflow-x: hidden;
 }
 
-/* =========================
-   VIDEO DE FUNDO
-========================= */
-#bg-video {
+/* VIDEO FUNDO */
+ #bg-video {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,28 +21,28 @@ html, body {
     z-index: -2;
 }
 
-/* overlay escuro */
+/* OVERLAY ESCURO */
 body::after {
     content: "";
     position: fixed;
-    inset: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0,0,0,0.6);
+    top: 0;
+    left: 0;
     z-index: -1;
 }
 
-/* =========================
-   BASE
-========================= */
+/* BODY */
 body {
     font-family: "Anton", sans-serif;
     color: white;
 }
 
-/* título */
+/* TÍTULO */
 .content {
     text-align: center;
     margin-top: 40px;
-    padding: 10px;
 }
 
 h1 {
@@ -51,24 +50,20 @@ h1 {
     letter-spacing: 4px;
 }
 
-/* header */
+/* HEADER */
 header {
     text-align: center;
     margin: 20px;
-    padding: 10px;
 }
 
-/* main */
+/* MAIN */
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 40px;
 }
 
-/* =========================
-   BLOCOS estilo Persona
-========================= */
+/* BLOCOS (estilo Persona) */
 .bloco {
     background: rgba(0,0,0,0.7);
     padding: 25px;
@@ -77,75 +72,28 @@ main {
     max-width: 600px;
 
     transform: skew(-10deg);
-    transition: 0.3s ease;
+    transition: 0.3s;
 }
 
-/* texto dentro do bloco */
+/* TEXTO NORMAL */
 .bloco * {
     transform: skew(10deg);
 }
 
-/* hover estilo jogo */
+/* EFEITO HOVER (fica MUITO estilo jogo) */
 .bloco:hover {
     background: rgb(9, 60, 189);
     transform: skew(-10deg) scale(1.05);
 }
 
-/* títulos */
+/* TITULOS */
 h2 {
     margin-bottom: 10px;
     font-size: 28px;
 }
 
-/* lista */
+/* LISTA */
 .list {
     margin-top: 10px;
     padding-left: 20px;
-}
-
-/* =========================
-   📱 RESPONSIVO MOBILE
-========================= */
-@media (max-width: 768px) {
-
-    h1 {
-        font-size: 36px;
-        letter-spacing: 2px;
-    }
-
-    .content {
-        margin-top: 25px;
-    }
-
-    header {
-        margin: 10px;
-    }
-
-    .bloco {
-        width: 92%;
-        padding: 18px;
-        margin: 12px;
-        transform: skew(-6deg);
-    }
-
-    .bloco * {
-        transform: skew(6deg);
-    }
-
-    h2 {
-        font-size: 22px;
-    }
-
-    p, li {
-        font-size: 14px;
-    }
-}
-
-/* =========================
-   EXTRA: suaviza performance mobile
-========================= */
-@media (max-width: 768px) {
-    #bg-video {
-        object-fit: cover;
-    }
 }
