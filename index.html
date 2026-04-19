@@ -62,18 +62,20 @@
 
     <footer></footer>
 <script>
-window.addEventListener("pointerdown", function start() {
-    const music = document.getElementById("bg-music");
-    music.volume = 0.4;
+const music = document.getElementById("bg-music");
+music.volume = 0.4;
 
-    music.play().then(() => {
-        console.log("tocando");
-    }).catch(err => {
-        console.log("bloqueado:", err);
-    });
+function startMusic() {
+    music.play()
+        .then(() => console.log("tocando"))
+        .catch(err => console.log("bloqueado:", err));
 
-    window.removeEventListener("pointerdown", start);
-});
+    // remove depois de funcionar
+    window.removeEventListener("pointerdown", startMusic);
+}
+
+// usa pointerdown (funciona melhor que click no mobile + desktop)
+window.addEventListener("pointerdown", startMusic);
 </script>
 </body>
 </html>
