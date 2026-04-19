@@ -13,10 +13,9 @@
 </head>
 
 <body>
-    <audio id="bg-music" loop style="display:none">
+    <audio id="bg-music" loop>
     <source src="song.mp3" type="audio/mpeg">
     </audio>
-
     <video autoplay muted loop id="bg-video">
         <source src="video.mp4" type="video/mp4">
     </video>
@@ -63,22 +62,12 @@
     <footer></footer>
 <script>
 const music = document.getElementById("bg-music");
+
 music.volume = 0.4;
 
-// garante que não apareça player se não quiser
-music.controls = false;
-
-function enableMusic() {
-    music.play().then(() => {
-        console.log("música tocando");
-    }).catch(err => {
-        console.log("bloqueado:", err);
-    });
-
-    window.removeEventListener("pointerdown", enableMusic);
-}
-
-window.addEventListener("pointerdown", enableMusic);
+window.addEventListener("pointerdown", () => {
+    music.play();
+}, { once: true });
 </script>
 </body>
 </html>
