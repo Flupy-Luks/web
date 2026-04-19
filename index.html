@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <audio controls>
+    <audio id="bg-music" loop style="display:none">
     <source src="song.mp3" type="audio/mpeg">
     </audio>
 
@@ -65,17 +65,20 @@
 const music = document.getElementById("bg-music");
 music.volume = 0.4;
 
-function startMusic() {
-    music.play()
-        .then(() => console.log("tocando"))
-        .catch(err => console.log("bloqueado:", err));
+// garante que não apareça player se não quiser
+music.controls = false;
 
-    // remove depois de funcionar
-    window.removeEventListener("pointerdown", startMusic);
+function enableMusic() {
+    music.play().then(() => {
+        console.log("música tocando");
+    }).catch(err => {
+        console.log("bloqueado:", err);
+    });
+
+    window.removeEventListener("pointerdown", enableMusic);
 }
 
-// usa pointerdown (funciona melhor que click no mobile + desktop)
-window.addEventListener("pointerdown", startMusic);
+window.addEventListener("pointerdown", enableMusic);
 </script>
 </body>
 </html>
