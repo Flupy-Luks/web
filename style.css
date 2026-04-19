@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* VIDEO FUNDO */
+ #bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* OVERLAY ESCURO */
+body::after {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* BODY */
+body {
+    font-family: "Anton", sans-serif;
+    color: white;
+}
+
+/* TÍTULO */
+.content {
+    text-align: center;
+    margin-top: 40px;
+}
+
+h1 {
+    font-size: 70px;
+    letter-spacing: 4px;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    margin: 20px;
+}
+
+/* MAIN */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* BLOCOS (estilo Persona) */
+.bloco {
+    background: rgba(0,0,0,0.7);
+    padding: 25px;
+    margin: 20px;
+    width: 80%;
+    max-width: 600px;
+
+    transform: skew(-10deg);
+    transition: 0.3s;
+}
+
+/* TEXTO NORMAL */
+.bloco * {
+    transform: skew(10deg);
+}
+
+/* EFEITO HOVER (fica MUITO estilo jogo) */
+.bloco:hover {
+    background: rgb(9, 60, 189);
+    transform: skew(-10deg) scale(1.05);
+}
+
+/* TITULOS */
+h2 {
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+/* LISTA */
+.list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
