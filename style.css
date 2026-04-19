@@ -1,41 +1,209 @@
-/* 📱 MOBILE RESPONSIVE */
-@media (max-width: 768px) {
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FernBlog</title>
+    <meta name="author" content="Luks">
+    <meta name="description" content="Welcome to my programming blog. Here I show my evolution in this world. Thanks!">
 
-    h1 {
-        font-size: 40px;
-        text-align: center;
-    }
+    <!-- MOBILE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .content {
-        margin-top: 30px;
-        padding: 10px;
-    }
+    <!-- CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-        text-align: center;
-        margin: 10px;
-        padding: 10px;
-    }
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
 
-    .bloco {
-        width: 90%;
-        margin: 10px auto;
-        padding: 18px;
-    }
+        /* VIDEO FUNDO */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            pointer-events: none;
+        }
 
-    p {
-        font-size: 14px;
-    }
+        /* OVERLAY */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: -1;
+        }
 
-    h2 {
-        font-size: 22px;
-    }
+        body {
+            font-family: "Anton", sans-serif;
+            color: white;
+        }
 
-    ol {
-        padding-left: 20px;
-    }
+        /* TÍTULO */
+        .content {
+            text-align: center;
+            margin-top: 40px;
+            padding: 10px;
+        }
 
-    #bg-video {
-        object-fit: cover;
-    }
-}
+        h1 {
+            font-size: 70px;
+            letter-spacing: 4px;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin: 20px;
+        }
+
+        /* MAIN */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* BLOCOS */
+        .bloco {
+            background: rgba(0,0,0,0.7);
+            padding: 25px;
+            margin: 20px;
+            width: 80%;
+            max-width: 600px;
+
+            transform: skew(-10deg);
+            transition: 0.3s;
+        }
+
+        .bloco * {
+            transform: skew(10deg);
+        }
+
+        .bloco:hover {
+            background: rgb(9, 60, 189);
+            transform: skew(-10deg) scale(1.05);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .list {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        /* 📱 MOBILE */
+        @media (max-width: 768px) {
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .content {
+                margin-top: 30px;
+            }
+
+            header {
+                margin: 10px;
+            }
+
+            .bloco {
+                width: 90%;
+                margin: 10px;
+                padding: 18px;
+                transform: skew(-6deg);
+            }
+
+            .bloco * {
+                transform: skew(6deg);
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            p, li {
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ÁUDIO -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- VÍDEO -->
+    <video autoplay muted loop id="bg-video">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <div class="content">
+        <h1>Fern</h1>
+        <p>Clique para ativar a música 🔊</p>
+    </div>
+
+    <header>
+        <p>Hey twin!!! Check this out!</p>
+    </header>
+
+    <main>
+
+        <section class="bloco">
+            <h2>About Me</h2>
+            <p>My name is Lucas, I'm 19 years old, I'm from Sobral-CE, Brazil, and I study programming at UVA.</p>
+        </section>
+
+        <section class="bloco">
+            <h2>Hobbies</h2>
+            <p>I play several instruments like guitar, bass, viola, and a little bit of flute.</p>
+        </section>
+
+        <section class="bloco">
+            <h2>Programming</h2>
+            <p>My knowledge of programming is still basic, but I'm working to improve. Currently, I study C at university.</p>
+        </section>
+
+        <section class="bloco">
+            <h2>Games</h2>
+            <ol class="list">
+                <li>Shadow of the Colossus</li>
+                <li>Ico</li>
+                <li>Death Stranding</li>
+                <li>Persona 5</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <script>
+    const music = document.getElementById("bg-music");
+
+    music.volume = 0.4;
+
+    window.addEventListener("pointerdown", () => {
+        music.play();
+    }, { once: true });
+    </script>
+
+</body>
+</html>
