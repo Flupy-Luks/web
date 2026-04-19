@@ -10,19 +10,60 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <style>
+        /* garante que vídeo fique de fundo */
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .content {
+            position: relative;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        header, main {
+            position: relative;
+            padding: 20px;
+        }
+
+        .bloco {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <audio autoplay loop id="bg-music">
-    <source src="song.mp3" type="audio/mp3">
+
+    <!-- ÁUDIO (sem autoplay, controlado por clique) -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- VÍDEO DE FUNDO -->
     <video autoplay muted loop id="bg-video">
         <source src="video.mp4" type="video/mp4">
     </video>
 
     <div class="content">
         <h1>Fern</h1>
+        <p>Clique em qualquer lugar para ativar a música 🔊</p>
     </div>
 
     <header>
@@ -61,12 +102,18 @@
     </main>
 
     <footer></footer>
-<script>
-  const music = document.getElementById("bg-music");
 
-  music.volume = 0.4;
+    <script>
+        const music = document.getElementById("bg-music");
+        music.volume = 0.4;
 
-  console.log("volume:", music.volume);
-</script>
+        // ativa música após primeiro clique (necessário no GitHub Pages)
+        document.addEventListener("click", () => {
+            music.play().catch(err => {
+                console.log("Autoplay blocked:", err);
+            });
+        }, { once: true });
+    </script>
+
 </body>
 </html>
