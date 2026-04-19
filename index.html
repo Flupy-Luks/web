@@ -5,126 +5,24 @@
     <meta name="author" content="Luks">
     <meta name="description" content="Welcome to my programming blog. Here I show my evolution in this world. Thanks!">
 
-    <!-- 🔥 ESSENCIAL PARA MOBILE -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-
-    <style>
-        /* =========================
-           FUNDO VÍDEO
-        ========================== */
-        #bg-video {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -1;
-            object-fit: cover;
-        }
-
-        /* =========================
-           BASE DESKTOP
-        ========================== */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: white;
-            overflow-x: hidden;
-        }
-
-        .content {
-            position: relative;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        header, main {
-            position: relative;
-            padding: 20px;
-        }
-
-        .bloco {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 10px;
-        }
-
-        h1 {
-            font-size: 60px;
-        }
-
-        p {
-            font-size: 18px;
-        }
-
-        /* =========================
-           🔥 MOBILE RESPONSIVE
-        ========================== */
-        @media (max-width: 768px) {
-
-            .content {
-                margin-top: 30px;
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            p {
-                font-size: 14px;
-            }
-
-            header, main {
-                padding: 10px;
-            }
-
-            .bloco {
-                padding: 12px;
-                margin-bottom: 15px;
-                border-radius: 8px;
-            }
-
-            /* vídeo mais leve no mobile */
-            #bg-video {
-                width: auto;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-
-        /* =========================
-           MELHORIA VISUAL (opcional vibe Persona)
-        ========================== */
-        .bloco {
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-    </style>
 </head>
 
 <body>
-
-    <!-- ÁUDIO -->
-    <audio id="bg-music" loop>
-        <source src="song.mp3" type="audio/mpeg">
+    <audio autoplay loop id="bg-music">
+    <source src="song.mp3" type="audio/mp3">
     </audio>
 
-    <!-- VÍDEO DE FUNDO -->
     <video autoplay muted loop id="bg-video">
         <source src="video.mp4" type="video/mp4">
     </video>
 
     <div class="content">
         <h1>Fern</h1>
-        <p>Clique em qualquer lugar para ativar a música 🔊</p>
     </div>
 
     <header>
@@ -163,18 +61,12 @@
     </main>
 
     <footer></footer>
+<script>
+  const music = document.getElementById("bg-music");
 
-    <script>
-        const music = document.getElementById("bg-music");
-        music.volume = 0.4;
+  music.volume = 0.4;
 
-        // inicia música após interação (obrigatório no GitHub Pages)
-        document.addEventListener("click", () => {
-            music.play().catch(err => {
-                console.log("Autoplay blocked:", err);
-            });
-        }, { once: true });
-    </script>
-
+  console.log("volume:", music.volume);
+</script>
 </body>
 </html>
