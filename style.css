@@ -5,7 +5,7 @@
 }
 
 /* ============================================
-   KEYFRAMES — ANIMAÇÕES ESTILO PERSONA
+   KEYFRAMES
    ============================================ */
 
 @keyframes girar {
@@ -18,14 +18,12 @@
     100% { opacity: 0; }
 }
 
-/* Tela principal saindo pela esquerda */
 @keyframes sair-esquerda {
     0%   { opacity: 1; transform: translateX(0)     skew(0deg);   }
     25%  { opacity: 1; transform: translateX(2%)    skew(3deg);   }
     100% { opacity: 0; transform: translateX(-115%) skew(-12deg); }
 }
 
-/* Tela principal voltando pela esquerda */
 @keyframes entrar-esquerda {
     0%   { opacity: 0; transform: translateX(-115%) skew(-12deg); }
     40%  { opacity: 1; transform: translateX(2%)    skew(3deg);   }
@@ -33,30 +31,21 @@
     100% { opacity: 1; transform: translateX(0)     skew(0deg);   }
 }
 
-/* Tela about entrando pela direita */
 @keyframes entrar-direita {
-    0%   { opacity: 0; transform: translateX(115%)  skew(-20deg) scaleX(1.07); }
-    35%  { opacity: 1; transform: translateX(-3%)   skew(-12deg) scaleX(1.01); }
-    65%  {             transform: translateX(1%)    skew(-10deg) scaleX(1);    }
-    100% { opacity: 1; transform: translateX(0)     skew(-10deg) scaleX(1);   }
+    0%   { opacity: 0; transform: translateX(115%)  skew(-20deg); }
+    35%  { opacity: 1; transform: translateX(-3%)   skew(-12deg); }
+    65%  {             transform: translateX(1%)    skew(-10deg); }
+    100% { opacity: 1; transform: translateX(0)     skew(0deg);   }
 }
 
-/* Tela about saindo pela direita */
 @keyframes sair-direita {
-    0%   { opacity: 1; transform: translateX(0)    skew(-10deg); }
-    30%  { opacity: 1; transform: translateX(-3%)  skew(-15deg); }
-    100% { opacity: 0; transform: translateX(115%) skew(-20deg); }
-}
-
-/* Blocos internos do about entram em stagger */
-@keyframes bloco-entrar {
-    0%   { opacity: 0; transform: skew(10deg) translateX(50px); }
-    55%  { opacity: 1; transform: skew(10deg) translateX(-3px); }
-    100% { opacity: 1; transform: skew(10deg) translateX(0);    }
+    0%   { opacity: 1; transform: translateX(0)    skew(0deg);  }
+    30%  { opacity: 1; transform: translateX(-3%)  skew(-5deg); }
+    100% { opacity: 0; transform: translateX(115%) skew(10deg); }
 }
 
 /* ============================================
-   FLASH BRANCO PERSONA
+   FLASH
    ============================================ */
 
 .persona-flash {
@@ -78,11 +67,13 @@
 
 html, body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
     font-family: "Anton", sans-serif;
     color: white;
+    background: #000;
 }
 
 /* ============================================
@@ -96,33 +87,43 @@ body {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    z-index: -2;
+    z-index: 0;
 }
 
-/* Overlay escuro */
+/* Overlay escuro sobre o vídeo */
 body::after {
     content: "";
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.55);
-    z-index: -1;
+    z-index: 1;
+    pointer-events: none;
 }
 
 /* ============================================
-   TELA PRINCIPAL
+   TELAS (principal e about)
    ============================================ */
 
-.tela-principal {
+.tela {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    min-height: 100vh;
 }
 
-.tela-principal.saindo-esquerda {
+.tela.saindo-esquerda {
     animation: sair-esquerda 0.45s cubic-bezier(0.55, 0, 1, 0.45) forwards;
 }
 
-.tela-principal.entrando-direita {
+.tela.entrando-esquerda {
     animation: entrar-esquerda 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.tela.entrando-direita {
+    animation: entrar-direita 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.tela.saindo-direita {
+    animation: sair-direita 0.45s cubic-bezier(0.55, 0, 1, 0.45) forwards;
 }
 
 /* ============================================
@@ -131,7 +132,7 @@ body::after {
 
 .content {
     text-align: center;
-    margin-top: 40px;
+    padding-top: 40px;
 }
 
 h1 {
@@ -158,9 +159,10 @@ main {
 }
 
 .bloco {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.75);
+    border: 2px solid rgba(9, 60, 189, 0.6);
     padding: 25px;
-    margin: 20px;
+    margin: 16px 0;
     width: 80%;
     max-width: 600px;
 
@@ -168,13 +170,14 @@ main {
     transition: background 0.3s, transform 0.3s;
 }
 
-.bloco * {
+.bloco > * {
     transform: skew(10deg);
+    display: block;
 }
 
 .bloco:hover {
-    background: rgb(9, 60, 189);
-    transform: skew(-10deg) scale(1.05);
+    background: rgba(9, 60, 189, 0.85);
+    transform: skew(-10deg) scale(1.03);
 }
 
 .botao {
@@ -183,76 +186,23 @@ main {
 
 .list {
     margin-top: 10px;
+    padding-left: 20px;
 }
 
 /* ============================================
-   TELA ABOUT
-   — sem fundo preto, flutua sobre o vídeo
-   ============================================ */
-
-.tela-about {
-    position: fixed;
-    inset: 0;
-    z-index: 10;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    opacity: 0;
-    transform: translateX(115%) skew(-10deg);
-    pointer-events: none;
-}
-
-.tela-about.ativa {
-    pointer-events: all;
-    animation: entrar-direita 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.tela-about.saindo-direita {
-    pointer-events: none;
-    animation: sair-direita 0.45s cubic-bezier(0.55, 0, 1, 0.45) forwards;
-}
-
-.conteudo-about {
-    transform: skew(10deg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.about-bloco {
-    opacity: 0;
-}
-
-.tela-about.ativa .about-bloco:nth-child(1) {
-    animation: bloco-entrar 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
-}
-
-.tela-about.ativa .about-bloco:nth-child(2) {
-    animation: bloco-entrar 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.40s forwards;
-}
-
-/* ============================================
-   BOTÃO VOLTAR — azul, igual aos outros blocos
+   BOTÃO VOLTAR
    ============================================ */
 
 .voltar {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-
+    display: block;
+    margin: 30px auto 10px 10%;
     background: rgb(9, 60, 189);
     border: none;
     color: white;
     padding: 10px 25px;
-
     font-family: "Anton", sans-serif;
     font-size: 16px;
     cursor: pointer;
-
     transform: skew(-10deg);
     transition: background 0.3s, transform 0.3s;
 }
@@ -271,36 +221,31 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
-
-    background: rgba(13, 0, 255, 0.464);
+    background: rgba(13, 0, 255, 0.6);
     padding: 9px;
     width: 180px;
-
     position: fixed;
     bottom: 10px;
     left: -250px;
-
-    border: 5px solid rgba(0, 0, 0, 0.74);
-
+    border: 3px solid rgba(0, 0, 0, 0.74);
     transform: skew(-10deg);
     transition: left 0.5s ease;
-
-    z-index: 5;
+    z-index: 10;
 }
 
 .etiqueta.show {
     left: 10px;
 }
 
-.etiqueta * {
+.etiqueta > * {
     transform: skew(10deg);
 }
 
 .vinil {
-    width: 60px;
+    width: 50px;
     animation: girar 3s linear infinite;
 }
 
 .etiqueta:hover {
-    border-color: rgba(255, 255, 255, 0.656);
+    border-color: rgba(255, 255, 255, 0.7);
 }
