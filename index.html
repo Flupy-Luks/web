@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>FernBlog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <video autoplay muted loop id="bg-video">
+    <video autoplay muted loop playsinline id="bg-video">
         <source src="video.mp4" type="video/mp4">
     </video>
 
@@ -21,7 +21,7 @@
     <div class="persona-flash" id="persona-flash"></div>
 
     <!-- ===================== TELA PRINCIPAL ===================== -->
-    <div class="tela-principal" id="tela-principal">
+    <div class="tela" id="tela-principal">
 
         <div class="content">
             <h1>Fern</h1>
@@ -62,15 +62,14 @@
 
     </div>
 
-    <!-- ===================== TELA ABOUT =====================
-         Sem fundo preto — flutua diretamente sobre o vídeo   -->
-    <div class="tela-about" id="about-tela">
+    <!-- ===================== TELA ABOUT ===================== -->
+    <div class="tela" id="tela-about">
 
         <button class="voltar" id="btn-voltar">← BACK</button>
 
-        <div class="conteudo-about">
+        <main>
 
-            <div class="bloco about-bloco">
+            <div class="bloco">
                 <h2>About Me</h2>
                 <p>
                     My name is Lucas, I'm 19 years old, from Sobral-CE.<br>
@@ -78,40 +77,41 @@
                 </p>
             </div>
 
-            <div class="bloco about-bloco">
+            <div class="bloco">
                 <h2>Contact</h2>
                 <p>You can reach me here and there.</p>
             </div>
 
-        </div>
+        </main>
 
     </div>
 
     <!-- Etiqueta de música -->
-    <div class="etiqueta">
+    <div class="etiqueta" id="etiqueta">
         <img class="vinil" src="vinil.png">
         <p>ATLUS - Color Your Night</p>
     </div>
 
     <script>
-        const music    = document.getElementById("bg-music");
-        const etiqueta = document.querySelector(".etiqueta");
-        const video    = document.getElementById("bg-video");
-        const flash    = document.getElementById("persona-flash");
-
-        const aboutBtn  = document.getElementById("about-btn");
-        const aboutTela = document.getElementById("about-tela");
-        const principal = document.getElementById("tela-principal");
-        const voltarBtn = document.getElementById("btn-voltar");
+        const music      = document.getElementById("bg-music");
+        const etiqueta   = document.getElementById("etiqueta");
+        const video      = document.getElementById("bg-video");
+        const flash      = document.getElementById("persona-flash");
+        const aboutBtn   = document.getElementById("about-btn");
+        const telaAbout  = document.getElementById("tela-about");
+        const telaPrinc  = document.getElementById("tela-principal");
+        const voltarBtn  = document.getElementById("btn-voltar");
 
         music.volume = 0.4;
+
+        // Garante que a tela about começa escondida
+        telaAbout.style.display = "none";
 
         window.addEventListener("pointerdown", () => {
             music.play();
             etiqueta.classList.add("show");
         }, { once: true });
 
-        /* --- Flash branco --- */
         function triggerFlash() {
             flash.classList.remove("flash-ativo");
             void flash.offsetWidth;
@@ -123,17 +123,23 @@
             triggerFlash();
 
             setTimeout(() => {
-                principal.classList.add("saindo-esquerda");
+                // Anima saída da principal
+                telaPrinc.classList.add("saindo-esquerda");
 
-                aboutTela.classList.remove("saindo-direita");
-                aboutTela.classList.add("ativa");
+                telaPrinc.addEventListener("animationend", () => {
+                    // Esconde a principal e mostra a about
+                    telaPrinc.style.display = "none";
+                    telaPrinc.classList.remove("saindo-esquerda");
 
-                video.src = "video2.mp4";
-                video.load();
-                video.play();
+                    telaAbout.style.display = "block";
+                    telaAbout.classList.remove("saindo-direita");
+                    telaAbout.classList.add("entrando-direita");
 
-                principal.addEventListener("animationend", () => {
-                    principal.style.visibility = "hidden";
+                    // Troca o vídeo
+                    video.src = "video2.mp4";
+                    video.load();
+                    video.play();
+
                 }, { once: true });
 
             }, 80);
@@ -148,23 +154,27 @@
             triggerFlash();
 
             setTimeout(() => {
-                aboutTela.classList.remove("ativa");
-                aboutTela.classList.add("saindo-direita");
+                // Anima saída da about
+                telaAbout.classList.remove("entrando-direita");
+                telaAbout.classList.add("saindo-direita");
 
-                principal.style.visibility = "visible";
-                principal.classList.remove("saindo-esquerda");
-                principal.classList.add("entrando-direita");
+                telaAbout.addEventListener("animationend", () => {
+                    // Esconde a about e mostra a principal
+                    telaAbout.style.display = "none";
+                    telaAbout.classList.remove("saindo-direita");
 
-                video.src = "video.mp4";
-                video.load();
-                video.play();
+                    telaPrinc.style.display = "block";
+                    telaPrinc.classList.add("entrando-esquerda");
 
-                aboutTela.addEventListener("animationend", () => {
-                    aboutTela.classList.remove("saindo-direita");
-                }, { once: true });
+                    // Troca o vídeo
+                    video.src = "video.mp4";
+                    video.load();
+                    video.play();
 
-                principal.addEventListener("animationend", () => {
-                    principal.classList.remove("entrando-direita");
+                    telaPrinc.addEventListener("animationend", () => {
+                        telaPrinc.classList.remove("entrando-esquerda");
+                    }, { once: true });
+
                 }, { once: true });
 
             }, 80);
