@@ -1,137 +1,820 @@
+/* ============================================
+   RESET & BASE
+   ============================================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-@keyframes girar {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
 html, body {
     height: 100%;
+    overflow: hidden;
 }
 
-/* VIDEO FUNDO */
+body {
+    font-family: "Anton", sans-serif;
+    color: white;
+    background: #000;
+}
+
+/* ============================================
+   KEYFRAMES — TELA PRINCIPAL
+   ============================================ */
+
+/* Saída padrão: desliza para esquerda com skew */
+@keyframes sair-esquerda {
+    0%   { opacity: 1; transform: translateX(0)     skew(0deg);   }
+    25%  { opacity: 1; transform: translateX(2%)    skew(3deg);   }
+    100% { opacity: 0; transform: translateX(-115%) skew(-12deg); }
+}
+
+/* Volta da principal */
+@keyframes entrar-esquerda {
+    0%   { opacity: 0; transform: translateX(-115%) skew(-12deg); }
+    40%  { opacity: 1; transform: translateX(2%)    skew(3deg);   }
+    70%  {             transform: translateX(-1%)   skew(-1deg);  }
+    100% { opacity: 1; transform: translateX(0)     skew(0deg);   }
+}
+
+/* ============================================
+   KEYFRAMES — TELA ABOUT (desliza da direita)
+   ============================================ */
+
+@keyframes about-entrar {
+    0%   { opacity: 0; transform: translateX(115%)  skew(-20deg) scaleX(1.07); }
+    35%  { opacity: 1; transform: translateX(-3%)   skew(-12deg) scaleX(1.01); }
+    65%  {             transform: translateX(1%)    skew(-10deg) scaleX(1);    }
+    100% { opacity: 1; transform: translateX(0)     skew(-10deg) scaleX(1);   }
+}
+
+@keyframes about-sair {
+    0%   { opacity: 1; transform: translateX(0)    skew(-10deg); }
+    30%  { opacity: 1; transform: translateX(-3%)  skew(-15deg); }
+    100% { opacity: 0; transform: translateX(115%) skew(-20deg); }
+}
+
+/* ============================================
+   KEYFRAMES — TELA HOBBIES (cai de cima)
+   ============================================ */
+
+@keyframes hobbies-entrar {
+    0%   { opacity: 0; transform: translateY(-110%) scaleY(0.92) skew(0deg, -5deg); }
+    40%  { opacity: 1; transform: translateY(3%)    scaleY(1.02) skew(0deg, 2deg);  }
+    70%  {             transform: translateY(-1%)   scaleY(1)    skew(0deg, -1deg); }
+    100% { opacity: 1; transform: translateY(0)     scaleY(1)    skew(0deg, 0deg);  }
+}
+
+@keyframes hobbies-sair {
+    0%   { opacity: 1; transform: translateY(0)     scaleY(1); }
+    30%  { opacity: 1; transform: translateY(-3%)   scaleY(1.02); }
+    100% { opacity: 0; transform: translateY(-110%) scaleY(0.9); }
+}
+
+/* ============================================
+   KEYFRAMES — TELA PROGRAMMING (zoom + fade)
+   ============================================ */
+
+@keyframes prog-entrar {
+    0%   { opacity: 0; transform: scale(1.15) rotate(-1deg); filter: blur(8px); }
+    50%  { opacity: 1; transform: scale(1.02) rotate(0.3deg); filter: blur(1px); }
+    100% { opacity: 1; transform: scale(1)    rotate(0deg); filter: blur(0px);  }
+}
+
+@keyframes prog-sair {
+    0%   { opacity: 1; transform: scale(1)    rotate(0deg); filter: blur(0px); }
+    100% { opacity: 0; transform: scale(0.88) rotate(1deg); filter: blur(8px); }
+}
+
+/* ============================================
+   KEYFRAMES — TELA GAMES (corte diagonal)
+   ============================================ */
+
+@keyframes games-entrar {
+    0%   { opacity: 0; clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+    20%  { opacity: 1; }
+    100% { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+@keyframes games-sair {
+    0%   { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    100% { opacity: 0; clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+}
+
+/* ============================================
+   KEYFRAMES — STAGGER BLOCOS INTERNOS
+   ============================================ */
+
+@keyframes bloco-entrar {
+    0%   { opacity: 0; transform: translateX(-40px) skew(5deg); }
+    60%  { opacity: 1; transform: translateX(4px)   skew(1deg); }
+    100% { opacity: 1; transform: translateX(0)     skew(0deg); }
+}
+
+@keyframes hobby-entrar {
+    0%   { opacity: 0; transform: translateY(30px) scale(0.95); }
+    60%  { opacity: 1; transform: translateY(-3px) scale(1.01); }
+    100% { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+@keyframes game-entrar {
+    0%   { opacity: 0; transform: translateX(60px) skew(-5deg); }
+    55%  { opacity: 1; transform: translateX(-4px) skew(1deg);  }
+    100% { opacity: 1; transform: translateX(0)    skew(0deg);  }
+}
+
+@keyframes terminal-entrar {
+    0%   { opacity: 0; transform: scale(0.93) translateY(20px); }
+    100% { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+/* ============================================
+   FLASH BRANCO PERSONA
+   ============================================ */
+
+@keyframes flash-branco {
+    0%   { opacity: 0.9; }
+    100% { opacity: 0; }
+}
+
+.persona-flash {
+    position: fixed;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 200;
+}
+
+.persona-flash.flash-ativo {
+    animation: flash-branco 0.3s ease-out forwards;
+}
+
+/* ============================================
+   GIRAR VINIL
+   ============================================ */
+
+@keyframes girar {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ============================================
+   VÍDEO DE FUNDO
+   ============================================ */
+
 #bg-video {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     object-fit: cover;
     z-index: -2;
+    transition: opacity 0.4s ease;
 }
 
-/* OVERLAY */
 body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.55);
     z-index: -1;
+    pointer-events: none;
 }
 
-/* BODY */
-body {
-    font-family: "Anton", sans-serif;
-    color: white;
+/* ============================================
+   TELAS — BASE
+   ============================================ */
+
+.tela {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
 }
 
-/* TÍTULO */
-.content {
-    text-align: center;
-    margin-top: 40px;
-}
+/* ============================================
+   TELA PRINCIPAL
+   ============================================ */
 
-h1 {
-    font-size: 70px;
-}
-
-/* HEADER */
-header {
-    text-align: center;
-    margin: 20px;
-}
-
-/* MAIN */
-main {
+.tela-principal {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-/* BLOCOS */
-.bloco {
-    background: rgba(0,0,0,0.7);
-    padding: 25px;
-    margin: 20px;
-    width: 80%;
-    max-width: 600px;
+.tela-principal.saindo-esquerda {
+    animation: sair-esquerda 0.45s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+.tela-principal.entrando {
+    animation: entrar-esquerda 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Título */
+.content {
+    text-align: right;
+    margin-top: 40px;
+    padding-right: 60px;
+}
+
+.titulo-principal {
+    font-size: 90px;
+    line-height: 1;
+    letter-spacing: -2px;
+    text-shadow: 4px 4px 0 rgba(9, 60, 189, 0.8);
+}
+
+.titulo-linha {
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgb(9, 60, 189), white);
+    margin-top: 8px;
+    margin-left: 40%;
+}
+
+header {
+    text-align: right;
+    padding-right: 60px;
+    margin: 10px 0 30px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+.subtitulo {
+    text-transform: uppercase;
+}
+
+/* ============================================
+   MENU LATERAL ESTILO PERSONA
+   ============================================ */
+
+main {
+    display: flex;
+    flex: 1;
+    padding: 0 60px;
+    gap: 30px;
+}
+
+.menu-lateral {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.menu-indicador {
+    font-size: 20px;
+    color: rgb(9, 60, 189);
+    position: absolute;
+    left: -4px;
+    top: 0;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+    text-shadow: 0 0 10px rgba(9, 60, 189, 0.9);
+    pointer-events: none;
+    z-index: 2;
+    /* será movido por JS via top diretamente */
+}
+
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 260px;
+    margin-left: 22px; /* espaço para a seta absoluta */
+}
+
+.menu-item {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    align-items: center;
+
+    padding: 14px 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    background: rgba(0, 0, 0, 0.6);
+    border-left: 3px solid transparent;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+
+    transform: skew(-8deg);
+}
+
+.menu-item .menu-num {
+    grid-row: 1 / 3;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 1px;
+    transform: skew(8deg);
+}
+
+.menu-item .menu-label {
+    font-size: 20px;
+    line-height: 1;
+    transform: skew(8deg);
+}
+
+.menu-item .menu-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    transform: skew(8deg);
+}
+
+.menu-item:hover,
+.menu-item.focado {
+    background: rgba(9, 60, 189, 0.75);
+    border-left-color: white;
+    transform: skew(-8deg) translateX(4px);
+}
+
+.menu-item.focado .menu-num {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================
+   PREVIEW LATERAL
+   ============================================ */
+
+.menu-preview {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.preview-content {
+    opacity: 0.5;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 2;
+    text-transform: uppercase;
+}
+
+.preview-content kbd {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 2px 6px;
+    font-family: "Anton", sans-serif;
+    font-size: 10px;
+}
+
+/* ============================================
+   HUD BAR INFERIOR
+   ============================================ */
+
+.hud-bar {
+    display: flex;
+    gap: 30px;
+    padding: 12px 60px;
+    background: rgba(9, 60, 189, 0.3);
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hud-key kbd {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 2px 6px;
+    font-family: "Anton", sans-serif;
+    font-size: 10px;
+    margin-right: 4px;
+}
+
+/* ============================================
+   TELAS SECUNDÁRIAS — BASE COMUM
+   ============================================ */
+
+.tela-secundaria {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.tela-secundaria.ativa {
+    pointer-events: all;
+}
+
+/* ============================================
+   ANIMAÇÕES DE ENTRADA POR TELA
+   ============================================ */
+
+/* ABOUT */
+#about-tela.ativa        { animation: about-entrar 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+#about-tela.saindo       { animation: about-sair   0.4s cubic-bezier(0.55, 0, 1, 0.45) forwards; pointer-events: none; }
+
+/* HOBBIES */
+#hobbies-tela.ativa      { animation: hobbies-entrar 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+#hobbies-tela.saindo     { animation: hobbies-sair   0.4s cubic-bezier(0.55, 0, 1, 0.45) forwards; pointer-events: none; }
+
+/* PROGRAMMING */
+#programming-tela.ativa  { animation: prog-entrar 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+#programming-tela.saindo { animation: prog-sair   0.4s cubic-bezier(0.55, 0, 1, 0.45) forwards; pointer-events: none; }
+
+/* GAMES */
+#games-tela.ativa        { animation: games-entrar 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+#games-tela.saindo       { animation: games-sair   0.4s cubic-bezier(0.55, 0, 1, 0.45) forwards; pointer-events: none; }
+
+/* ============================================
+   HEADER LATERAL DAS TELAS SECUNDÁRIAS
+   ============================================ */
+
+.tela-header-lateral {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.tela-num {
+    font-size: 48px;
+    color: rgba(9, 60, 189, 0.5);
+    line-height: 1;
+}
+
+.tela-titulo {
+    font-size: 36px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.tela-linha {
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(180deg, rgb(9, 60, 189), transparent);
+    display: none; /* opcional */
+}
+
+/* ============================================
+   BOTÃO VOLTAR
+   ============================================ */
+
+.voltar {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+
+    background: rgb(9, 60, 189);
+    border: none;
+    color: white;
+    padding: 10px 25px;
+
+    font-family: "Anton", sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: pointer;
 
     transform: skew(-10deg);
-    transition: 0.3s;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 20;
 }
 
-.bloco * {
-    transform: skew(10deg);
-}
+.voltar span { transform: skew(10deg); display: block; }
 
-.bloco:hover {
-    background: rgb(9, 60, 189);
+.voltar:hover {
+    background: white;
+    color: rgb(9, 60, 189);
     transform: skew(-10deg) scale(1.05);
 }
 
-/* 🔥 ETIQUETA (PLAYER) */
+/* ============================================
+   CONTEÚDO ESQUERDA — layout base
+   ============================================ */
+
+.conteudo-esquerda {
+    position: absolute;
+    top: 120px;
+    left: 60px;
+    width: 45%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ============================================
+   BLOCOS PADRÃO ESTILO PERSONA 3 REMAKE
+   ============================================ */
+
+.bloco {
+    background: white;
+    padding: 20px 28px 20px 24px;
+    transform: skewX(-8deg);
+    border-left: 6px solid #0930bd;
+    position: relative;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+/* Faixa diagonal decorativa no canto */
+.bloco::after {
+    content: "";
+    position: absolute;
+    top: -10px; right: -20px;
+    width: 50px; height: 120%;
+    background: rgba(9, 60, 189, 0.08);
+    transform: skewX(-5deg);
+}
+
+.bloco * {
+    transform: skewX(8deg);
+}
+
+.bloco h3 {
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    color: #0930bd;
+}
+
+.bloco p {
+    font-size: 13px;
+    line-height: 1.8;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: #0a1a4a;
+}
+
+.bloco-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+/* Stagger delays */
+.stagger-1 { opacity: 0; }
+.stagger-2 { opacity: 0; }
+.stagger-3 { opacity: 0; }
+.stagger-4 { opacity: 0; }
+
+.ativa .stagger-1 { animation: bloco-entrar 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards; }
+.ativa .stagger-2 { animation: bloco-entrar 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.37s forwards; }
+.ativa .stagger-3 { animation: bloco-entrar 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.49s forwards; }
+.ativa .stagger-4 { animation: bloco-entrar 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.61s forwards; }
+
+/* Hobbies: animação diferente */
+.conteudo-hobbies .stagger-1 { animation-name: hobby-entrar !important; }
+.conteudo-hobbies .stagger-2 { animation-name: hobby-entrar !important; }
+.conteudo-hobbies .stagger-3 { animation-name: hobby-entrar !important; }
+
+/* Games: animação diferente */
+.conteudo-games .stagger-1 { animation-name: game-entrar !important; }
+.conteudo-games .stagger-2 { animation-name: game-entrar !important; }
+.conteudo-games .stagger-3 { animation-name: game-entrar !important; }
+.conteudo-games .stagger-4 { animation-name: game-entrar !important; }
+
+/* Terminal: animação diferente */
+.code-terminal.stagger-1 { animation-name: terminal-entrar !important; }
+
+/* ============================================
+   CARDS DE HOBBIES
+   ============================================ */
+
+.hobby-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    padding: 16px 24px;
+    border-left: 6px solid #0930bd;
+    transform: skewX(-8deg);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
+    transition: background 0.2s, transform 0.15s;
+}
+
+.hobby-card > * {
+    transform: skewX(8deg);
+}
+
+.hobby-card:hover {
+    background: #f0f4ff;
+    transform: skewX(-8deg) translateX(6px);
+}
+
+.hobby-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.hobby-info h3 {
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 3px;
+    color: #0930bd;
+    text-transform: uppercase;
+}
+
+.hobby-info p {
+    font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: #0a1a4a;
+    opacity: 0.75;
+    letter-spacing: 1px;
+}
+
+/* ============================================
+   TERMINAL (Programming)
+   ============================================ */
+
+.code-terminal {
+    background: white;
+    border-left: 6px solid #0930bd;
+    transform: skewX(-8deg);
+    overflow: hidden;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+}
+
+.code-terminal > * {
+    transform: skewX(8deg);
+}
+
+.terminal-bar {
+    background: #0930bd;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transform: skewX(8deg);
+}
+
+.dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+}
+.dot.red    { background: rgba(255,255,255,0.3); }
+.dot.yellow { background: rgba(255,255,255,0.6); }
+.dot.green  { background: white; }
+
+.terminal-title {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.terminal-body {
+    padding: 16px 20px;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.9;
+    background: white;
+}
+
+.t-green  { color: #000; font-weight: bold; }
+.t-white  { color: #333; padding-left: 14px; }
+.t-blue   { color: #0930bd; font-weight: bold; }
+.t-yellow { color: #0930bd; font-weight: bold; }
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+    color: #0930bd;
+    font-family: monospace;
+}
+
+/* ============================================
+   GAME RANKS
+   ============================================ */
+
+.conteudo-games {
+    gap: 12px;
+}
+
+.game-rank {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 14px 24px;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transform: skewX(-8deg);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+    transition: background 0.15s, transform 0.15s;
+}
+
+.game-rank > * {
+    transform: skewX(8deg);
+}
+
+.game-rank::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: #0930bd;
+}
+
+.game-rank:hover {
+    background: #f0f4ff;
+    transform: skewX(-8deg) translateX(6px);
+}
+
+.rank-num {
+    font-size: 24px;
+    color: #0930bd;
+    min-width: 44px;
+    font-weight: 900;
+}
+
+.rank-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rank-title {
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.rank-tag {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #0930bd;
+    opacity: 0.7;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+/* ============================================
+   ETIQUETA DE MÚSICA
+   ============================================ */
+
 .etiqueta {
     display: flex;
     align-items: center;
     gap: 8px;
 
-    background: rgba(13, 0, 255, 0.464);
-    padding: 9px;
-    width: 180px;
+    background: rgba(13, 0, 255, 0.45);
+    padding: 9px 14px;
+    width: 190px;
 
     position: fixed;
-    bottom: 10px;
+    bottom: 60px;   /* subido para não sobrepor HUD */
+    left: -260px;
 
-    /* 🔥 COMEÇA FORA DA TELA */
-    left: -250px;
-
-    border: 5px solid rgba(0, 0, 0, 0.74);
+    border: 3px solid rgba(0, 0, 0, 0.7);
 
     transform: skew(-10deg);
-    transition: 0.5s ease;
+    transition: left 0.5s ease;
+
+    z-index: 50;
+    font-size: 10px;
+    letter-spacing: 1px;
 }
 
-/* 🔥 ENTRA NA TELA */
 .etiqueta.show {
     left: 10px;
 }
 
-/* corrige skew interno */
 .etiqueta * {
     transform: skew(10deg);
 }
 
-/* VINIL */
 .vinil {
-    width: 60px;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
     animation: girar 3s linear infinite;
 }
 
-/* HOVER */
+.etiqueta p {
+    font-size: 10px;
+    line-height: 1.4;
+}
+
 .etiqueta:hover {
-    border-color: rgba(255, 255, 255, 0.656);
+    border-color: rgba(255,255,255,0.6);
 }
 
-/* TITULOS */
-h2 {
-    margin-bottom: 10px;
-}
+/* ============================================
+   RESPONSIVE BÁSICO
+   ============================================ */
 
-/* LISTA */
-.list {
-    margin-top: 10px;
+@media (max-width: 700px) {
+    .titulo-principal { font-size: 60px; }
+    main { flex-direction: column; padding: 0 20px; }
+    .menu-nav { min-width: unset; width: 100%; }
+    .conteudo-esquerda { left: 20px; width: calc(100% - 40px); top: 110px; }
+    .tela-header-lateral { left: 20px; }
+    .voltar { right: 20px; }
+    .content { padding-right: 20px; }
+    header { padding-right: 20px; }
+    .hud-bar { padding: 10px 20px; gap: 16px; font-size: 10px; }
 }
