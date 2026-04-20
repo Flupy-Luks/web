@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <title>FernBlog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <video autoplay muted loop playsinline id="bg-video">
+    <video autoplay muted loop id="bg-video">
         <source src="video.mp4" type="video/mp4">
     </video>
 
@@ -21,165 +21,225 @@
     <div class="persona-flash" id="persona-flash"></div>
 
     <!-- ===================== TELA PRINCIPAL ===================== -->
-    <div class="tela" id="tela-principal">
+    <div class="tela tela-principal" id="tela-principal">
 
         <div class="content">
-            <h1>Fern</h1>
+            <h1 class="titulo-principal">Fern</h1>
+            <div class="titulo-linha"></div>
         </div>
 
         <header>
-            <p>Hey twin!!! Check this out!</p>
+            <p class="subtitulo">Hey twin!!! Check this out!</p>
         </header>
 
         <main>
+            <div class="menu-lateral">
+                <div class="menu-indicador" id="menu-indicador">▶</div>
 
-            <section class="bloco botao" id="about-btn" role="button" tabindex="0">
-                <h2>About Me</h2>
-                <p>Click to enter</p>
-            </section>
+                <nav class="menu-nav" id="menu-nav" aria-label="Menu principal">
+                    <div class="menu-item" data-index="0" data-tela="about-tela" data-video="video2.mp4" tabindex="0" role="button">
+                        <span class="menu-num">01</span>
+                        <span class="menu-label">About Me</span>
+                        <span class="menu-sub">Who I am</span>
+                    </div>
+                    <div class="menu-item" data-index="1" data-tela="hobbies-tela" data-video="video3.mp4" tabindex="0" role="button">
+                        <span class="menu-num">02</span>
+                        <span class="menu-label">Hobbies</span>
+                        <span class="menu-sub">What I love</span>
+                    </div>
+                    <div class="menu-item" data-index="2" data-tela="programming-tela" data-video="video4.mp4" tabindex="0" role="button">
+                        <span class="menu-num">03</span>
+                        <span class="menu-label">Programming</span>
+                        <span class="menu-sub">My skills</span>
+                    </div>
+                    <div class="menu-item" data-index="3" data-tela="games-tela" data-video="video5.mp4" tabindex="0" role="button">
+                        <span class="menu-num">04</span>
+                        <span class="menu-label">Games</span>
+                        <span class="menu-sub">Favorites</span>
+                    </div>
+                </nav>
+            </div>
 
-            <section class="bloco">
-                <h2>Hobbies</h2>
-                <p>I play several instruments like guitar, bass, viola, and a little bit of flute.</p>
-            </section>
-
-            <section class="bloco">
-                <h2>Programming</h2>
-                <p>My knowledge of programming is still basic, but I'm working to improve.</p>
-            </section>
-
-            <section class="bloco">
-                <h2>Games</h2>
-                <ol class="list">
-                    <li>Shadow of the Colossus</li>
-                    <li>Ico</li>
-                    <li>Death Stranding</li>
-                    <li>Persona 5</li>
-                </ol>
-            </section>
-
+            <div class="menu-preview" id="menu-preview">
+                <div class="preview-content" id="preview-content">
+                    <p class="preview-hint">Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate<br>Press <kbd>Enter</kbd> to select</p>
+                </div>
+            </div>
         </main>
+
+        <div class="hud-bar">
+            <span class="hud-key"><kbd>↑↓</kbd> Navigate</span>
+            <span class="hud-key"><kbd>Enter</kbd> Select</span>
+            <span class="hud-key"><kbd>Esc</kbd> Back</span>
+        </div>
 
     </div>
 
     <!-- ===================== TELA ABOUT ===================== -->
-    <div class="tela" id="tela-about">
+    <div class="tela tela-secundaria" id="about-tela">
 
-        <button class="voltar" id="btn-voltar">← BACK</button>
+        <button class="voltar" aria-label="Voltar">← BACK</button>
 
-        <main>
+        <div class="tela-header-lateral">
+            <div class="tela-num">01</div>
+            <h2 class="tela-titulo">About Me</h2>
+        </div>
 
-            <div class="bloco">
-                <h2>About Me</h2>
+        <div class="conteudo-esquerda">
+
+            <div class="bloco stagger-1">
+                <div class="bloco-icon">👤</div>
+                <h3>Identity</h3>
                 <p>
                     My name is Lucas, I'm 19 years old, from Sobral-CE.<br>
                     I'm focused on becoming a programmer and evolving every day.
                 </p>
             </div>
 
-            <div class="bloco">
-                <h2>Contact</h2>
+            <div class="bloco stagger-2">
+                <div class="bloco-icon">📬</div>
+                <h3>Contact</h3>
                 <p>You can reach me here and there.</p>
             </div>
 
-        </main>
+        </div>
+
+    </div>
+
+    <!-- ===================== TELA HOBBIES ===================== -->
+    <div class="tela tela-secundaria" id="hobbies-tela">
+
+        <button class="voltar" aria-label="Voltar">← BACK</button>
+
+        <div class="tela-header-lateral">
+            <div class="tela-num">02</div>
+            <h2 class="tela-titulo">Hobbies</h2>
+        </div>
+
+        <div class="conteudo-esquerda conteudo-hobbies">
+
+            <div class="hobby-card stagger-1">
+                <div class="hobby-icon">🎸</div>
+                <div class="hobby-info">
+                    <h3>Guitar & Bass</h3>
+                    <p>Shredding strings since forever.</p>
+                </div>
+            </div>
+
+            <div class="hobby-card stagger-2">
+                <div class="hobby-icon">🎻</div>
+                <div class="hobby-info">
+                    <h3>Viola</h3>
+                    <p>Classical roots, modern soul.</p>
+                </div>
+            </div>
+
+            <div class="hobby-card stagger-3">
+                <div class="hobby-icon">🪈</div>
+                <div class="hobby-info">
+                    <h3>Flute</h3>
+                    <p>A little bit — but it counts!</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================== TELA PROGRAMMING ===================== -->
+    <div class="tela tela-secundaria" id="programming-tela">
+
+        <button class="voltar" aria-label="Voltar">← BACK</button>
+
+        <div class="tela-header-lateral">
+            <div class="tela-num">03</div>
+            <h2 class="tela-titulo">Programming</h2>
+        </div>
+
+        <div class="conteudo-esquerda conteudo-programming">
+
+            <div class="code-terminal stagger-1">
+                <div class="terminal-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">status.sh</span>
+                </div>
+                <div class="terminal-body">
+                    <p><span class="t-green">$</span> whoami</p>
+                    <p class="t-white">Lucas — aspiring dev</p>
+                    <p><span class="t-green">$</span> skill --level</p>
+                    <p class="t-white">Basic → <span class="t-blue">Improving daily</span></p>
+                    <p><span class="t-green">$</span> goal</p>
+                    <p class="t-white">Become a <span class="t-yellow">full-stack</span> developer</p>
+                    <p class="cursor-blink">█</p>
+                </div>
+            </div>
+
+            <div class="bloco stagger-2">
+                <div class="bloco-icon">🚀</div>
+                <h3>Journey</h3>
+                <p>Still basic, but grinding every single day. The stack grows.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================== TELA GAMES ===================== -->
+    <div class="tela tela-secundaria" id="games-tela">
+
+        <button class="voltar" aria-label="Voltar">← BACK</button>
+
+        <div class="tela-header-lateral">
+            <div class="tela-num">04</div>
+            <h2 class="tela-titulo">Games</h2>
+        </div>
+
+        <div class="conteudo-esquerda conteudo-games">
+
+            <div class="game-rank stagger-1">
+                <div class="rank-num">#1</div>
+                <div class="rank-info">
+                    <span class="rank-title">Shadow of the Colossus</span>
+                    <span class="rank-tag">Epic / Adventure</span>
+                </div>
+            </div>
+
+            <div class="game-rank stagger-2">
+                <div class="rank-num">#2</div>
+                <div class="rank-info">
+                    <span class="rank-title">Ico</span>
+                    <span class="rank-tag">Atmospheric / Puzzle</span>
+                </div>
+            </div>
+
+            <div class="game-rank stagger-3">
+                <div class="rank-num">#3</div>
+                <div class="rank-info">
+                    <span class="rank-title">Death Stranding</span>
+                    <span class="rank-tag">Cinematic / Action</span>
+                </div>
+            </div>
+
+            <div class="game-rank stagger-4">
+                <div class="rank-num">#4</div>
+                <div class="rank-info">
+                    <span class="rank-title">Persona 5</span>
+                    <span class="rank-tag">JRPG / Style</span>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
     <!-- Etiqueta de música -->
     <div class="etiqueta" id="etiqueta">
-        <img class="vinil" src="vinil.png">
+        <img class="vinil" src="vinil.png" alt="vinil">
         <p>ATLUS - Color Your Night</p>
     </div>
 
-    <script>
-        const music      = document.getElementById("bg-music");
-        const etiqueta   = document.getElementById("etiqueta");
-        const video      = document.getElementById("bg-video");
-        const flash      = document.getElementById("persona-flash");
-        const aboutBtn   = document.getElementById("about-btn");
-        const telaAbout  = document.getElementById("tela-about");
-        const telaPrinc  = document.getElementById("tela-principal");
-        const voltarBtn  = document.getElementById("btn-voltar");
-
-        music.volume = 0.4;
-
-        // Garante que a tela about começa escondida
-        telaAbout.style.display = "none";
-
-        window.addEventListener("pointerdown", () => {
-            music.play();
-            etiqueta.classList.add("show");
-        }, { once: true });
-
-        function triggerFlash() {
-            flash.classList.remove("flash-ativo");
-            void flash.offsetWidth;
-            flash.classList.add("flash-ativo");
-        }
-
-        /* -------- ABRIR ABOUT -------- */
-        aboutBtn.addEventListener("click", () => {
-            triggerFlash();
-
-            setTimeout(() => {
-                // Anima saída da principal
-                telaPrinc.classList.add("saindo-esquerda");
-
-                telaPrinc.addEventListener("animationend", () => {
-                    // Esconde a principal e mostra a about
-                    telaPrinc.style.display = "none";
-                    telaPrinc.classList.remove("saindo-esquerda");
-
-                    telaAbout.style.display = "block";
-                    telaAbout.classList.remove("saindo-direita");
-                    telaAbout.classList.add("entrando-direita");
-
-                    // Troca o vídeo
-                    video.src = "video2.mp4";
-                    video.load();
-                    video.play();
-
-                }, { once: true });
-
-            }, 80);
-        });
-
-        aboutBtn.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") aboutBtn.click();
-        });
-
-        /* -------- VOLTAR -------- */
-        voltarBtn.addEventListener("click", () => {
-            triggerFlash();
-
-            setTimeout(() => {
-                // Anima saída da about
-                telaAbout.classList.remove("entrando-direita");
-                telaAbout.classList.add("saindo-direita");
-
-                telaAbout.addEventListener("animationend", () => {
-                    // Esconde a about e mostra a principal
-                    telaAbout.style.display = "none";
-                    telaAbout.classList.remove("saindo-direita");
-
-                    telaPrinc.style.display = "block";
-                    telaPrinc.classList.add("entrando-esquerda");
-
-                    // Troca o vídeo
-                    video.src = "video.mp4";
-                    video.load();
-                    video.play();
-
-                    telaPrinc.addEventListener("animationend", () => {
-                        telaPrinc.classList.remove("entrando-esquerda");
-                    }, { once: true });
-
-                }, { once: true });
-
-            }, 80);
-        });
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
