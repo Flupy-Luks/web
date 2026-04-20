@@ -2,27 +2,21 @@
 <html>
 <head>
     <title>FernBlog</title>
-    <meta name="author" content="Luks">
-    <meta name="description" content="Welcome to my programming blog. Here I show my evolution in this world. Thanks!">
-
-    <!-- 📱 ESSENCIAL PARA MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <audio id="bg-music" loop>
-        <source src="song.mp3" type="audio/mpeg">
+        <source src="audio/song.mp3" type="audio/mpeg">
     </audio>
 
     <video autoplay muted loop id="bg-video">
-        <source src="video.mp4" type="video/mp4">
+        <source src="video/video.mp4" type="video/mp4">
     </video>
 
     <div class="content">
@@ -42,7 +36,7 @@
 
         <section class="bloco">
             <h2>Hobbies</h2>
-            <p>I play several instruments like guitar, bass, viola, and a little bit of flute.</p>
+            <p>I play several instruments like guitar, bass, viola, and a little bit of flute.p>
         </section>
 
         <section class="bloco">
@@ -52,8 +46,6 @@
 
         <section class="bloco">
             <h2>Games</h2>
-            <p>Here is a list of my favorite games:</p>
-
             <ol class="list">
                 <li>Shadow of the Colossus</li>
                 <li>Ico</li>
@@ -64,17 +56,22 @@
 
     </main>
 
-    <footer></footer>
+    <!-- 🔥 PLAYER FORA DO MAIN -->
+    <div class="etiqueta">
+        <img class="vinil" src="vinil.png">
+        <p>ATLUS - Color Your Night</p>
+    </div>
 
-    <!-- 🔊 SEU JS (NÃO MEXI QUASE NADA) -->
     <script>
-    const music = document.getElementById("bg-music");
+        const music = document.getElementById("bg-music");
+        const etiqueta = document.querySelector(".etiqueta");
 
-    music.volume = 0.4;
+        music.volume = 0.4;
 
-    window.addEventListener("pointerdown", () => {
-        music.play();
-    }, { once: true });
+        window.addEventListener("pointerdown", () => {
+            music.play();
+            etiqueta.classList.add("show");
+        }, { once: true });
     </script>
 
 </body>
